@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         peliculas = new ArrayList<>(List.of(
-                new Pelicula("American Psycho", "6,6","85%","68%","https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Flag_of_France.svg/270px-Flag_of_France.svg.png"),
-                new Pelicula("Atrápame si puedes", "7,3","89%","96%","https://pics.filmaffinity.com/catch_me_if_you_can-348431648-large.jpg"),
+                new Pelicula("American Psycho", "6,6","85%","68%","https://pics.filmaffinity.com/american_psycho-503776720-large.jpg"),
+                new Pelicula("Atrápame si puedes", "7,3","89%","96%","https://graffica.info/wp-content/uploads/2017/03/atrapamesipuedes0201-724x1024.jpg"),
                 new Pelicula("El lobo de Wall Street", "7,6","83%","79%","https://pics.filmaffinity.com/the_wolf_of_wall_street-675195906-large.jpg"),
                 new Pelicula("Heat", "7,5","94%","81%","https://pics.filmaffinity.com/heat-911641527-large.jpg"),
                 new Pelicula("Toy Story", "7,7","92%","100%","https://pics.filmaffinity.com/toy_story-626273371-large.jpg"),
