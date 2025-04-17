@@ -21,18 +21,30 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {//necesario para el override de abajo
+/**
+ * Actividad principal que muestra un RecyclerView con una lista de películas.
+ * Implementa View.OnClickListener para gestionar los clics en los ítems del RecyclerView.
+ */
+public class MainActivity extends AppCompatActivity implements View.OnClickListener { //necesario para el override de abajo
 
+    // Lista de objetos Pelicula que se mostrarán en el RecyclerView
     private List<Pelicula> peliculas;
+
+    // Referencia al RecyclerView en el layout
     private RecyclerView recyclerView;
 
-
+    /**
+     * Méto-do que se ejecuta al crear la actividad.
+     * Configura el diseño, inicializa los datos y configura el RecyclerView.
+     * @param savedInstanceState Estado guardado de la actividad (si lo hubiera)
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        EdgeToEdge.enable(this); // Habilita que la interfaz use toda la pantalla (borde a borde)
         setContentView(R.layout.activity_main);
 
+        // Configura los márgenes para que el contenido no quede debajo de la barra de estado o navegación
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -41,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Context context = this;
 
-
+        //Creamos lista con las 12 peliculas
         peliculas = new ArrayList<>(List.of(
                 new Pelicula("American Psycho", "6,6","85%","68%","https://pics.filmaffinity.com/american_psycho-503776720-large.jpg"),
                 new Pelicula("Atrápame si puedes", "7,3","89%","96%","https://graffica.info/wp-content/uploads/2017/03/atrapamesipuedes0201-724x1024.jpg"),
@@ -57,22 +69,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 new Pelicula("Star Wars: The Force Awakens", "6,7","84%","93%","https://pics.filmaffinity.com/star_wars_episode_vii_the_force_awakens-625343391-large.jpg")
         ));
 
-        recyclerView = findViewById(R.id.recycled);
+        recyclerView = findViewById(R.id.recycled); //Asignamos a la vista del RecyclerView (recycled) la variable recyclerView
 
-        AdaptadorRV adaptador = new AdaptadorRV(this,peliculas,this); //este this envia al onClick de abajo
-        recyclerView.setAdapter(adaptador);
+        AdaptadorRV adaptador = new AdaptadorRV(this, peliculas, this);
+        //Creamos un adaptador, le pasamos el contexto, la informacion (peliculas)
+        // y el onclickListener que llevara al Override de abajo todos los ViewHolders
 
-        //importantisimo para que se vea de forma lineal los viewholders
+        recyclerView.setAdapter(adaptador); //Asignamos el adaptador al RecyclerView
+
+        //Importantisimo para que se vea de forma lineal los viewholders, si no, no aparecera
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-
-
     }
-    @Override //a este override vienen todos los viewholder
+
+    /**
+     * Méto-do que se ejecuta cuando se hace clic en un ViewHolder del RecyclerView.
+     * Recupera la posición del ítem clicado y obtiene la película correspondiente de la lista.
+     * @param view Vista que fue clicada
+     */
+
+    @Override
     public void onClick(View view){
         int posicion = recyclerView.getChildAdapterPosition(view);
         Pelicula pelicula = peliculas.get(posicion);
+        //A este override vienen todos los viewholder, se selecciona
+        // la posicion del viewholder y se busca la misma posicion en la lista peliculas
 
+        // Aquí puedes lanzar una nueva actividad, mostrar detalles, etc.
+        // Por ejemplo:
+        // Toast.makeText(this, "Has seleccionado: " + pelicula.getNombre(), Toast.LENGTH_SHORT).show();
     }
-
 }
